@@ -13,4 +13,4 @@ script:
 - curl http://127.0.0.1:8080/v1/info
 - docker stop applications_container
 - docker rm applications_container
-- docker rmi applications_kotlin
+- docker rmi applications
