@@ -1,11 +1,15 @@
 package com.apmath.applications
 
+import com.apmath.applications.application.v1.exceptions.ApiException
 import com.apmath.applications.application.v1.v1
-import com.apmath.applications.com.apmath.applications.infrastructure.applications
+import com.apmath.applications.infrastructure.applications
+import com.apmath.applications.infrastructure.respondApiException
 import io.ktor.application.Application
+import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.features.StatusPages
 import io.ktor.gson.gson
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Locations
@@ -36,9 +40,14 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
-
     install(Routing) {
         // append routing from application here
         v1()
+    }
+
+    install(StatusPages) {
+        exception<ApiException> { e ->
+            respondApiException(call, e)
+        }
     }
 }
