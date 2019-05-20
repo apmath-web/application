@@ -1,4 +1,4 @@
-package com.apmath.applications.com.apmath.applications.infrastructure
+package com.apmath.applications.infrastructure
 
 import com.apmath.applications.domain.ExpensesFetcherInterface
 import com.apmath.applications.infrastructure.ExpensesFetcher

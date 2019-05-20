@@ -3,8 +3,8 @@ package com.apmath.applications.application.v1.actions
 import com.apmath.applications.application.v1.actions.models.LoanRequest
 import com.apmath.applications.application.v1.actions.models.LoanResponseApproved
 import com.apmath.applications.application.v1.actions.models.LoanResponseDeclined
+import com.apmath.applications.application.v1.exceptions.BadRequestException
 import io.ktor.application.ApplicationCall
-import io.ktor.features.BadRequestException
 import io.ktor.request.receive
 import io.ktor.response.respond
 
