@@ -23,7 +23,12 @@ suspend fun ApplicationCall.v1LoanRequest(client: String, application: String) {
     }
 
     when {
-        clientId % 2 == 0 -> respond(LoanResponseApproved(11, loanRequest.term ?: 24))
+        clientId % 2 == 0 -> respond(
+            LoanResponseApproved(
+                11,
+                loanRequest.term ?: 24
+            )
+        )
         else -> respond(LoanResponseDeclined())
     }
 }
