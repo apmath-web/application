@@ -4,7 +4,6 @@ import com.apmath.applications.application.v1.actions.v1Create
 import com.apmath.applications.application.v1.actions.v1Info
 import com.apmath.applications.domain.exceptions.ApiException
 import com.apmath.applications.domain.services.ApplicationServiceInterface
-import com.sun.xml.internal.messaging.saaj.soap.SOAPIOException
 import io.ktor.application.ApplicationCall
 import com.apmath.applications.application.v1.actions.v1LoanRequest
 import io.ktor.application.call
