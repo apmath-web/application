@@ -1,4 +1,4 @@
-package com.apmath.applications.application.v1.models
+package com.apmath.applications.application.v1.actions.models
 
 import com.apmath.applications.domain.models.applications.Application as ApplicationDomain
 import com.apmath.applications.domain.data.Currency
