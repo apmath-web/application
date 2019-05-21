@@ -10,13 +10,14 @@ data class Application(
 
     override val amount: Money,
     override val currency: Currency,
-    override val period: Int,
+    override val term: Int,
     override val clientId: Int,
     override val interest: Int,
-    override val maxAmount: Money,
-    override val minAmount: Money,
+    override val maxAllowedAmount: Money,
+    override val minTermForMaxAmount: Money,
+    override val minTermForRequestedAmount: Money,
+    override val requestedAmount: Money,
 
-    override val loan: Int,
     override val status: Status,
     override val coBorrowers: Array<Int>,
     override var guarantors: Array<Int>

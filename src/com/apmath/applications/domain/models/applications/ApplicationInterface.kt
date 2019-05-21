@@ -10,13 +10,14 @@ interface ApplicationInterface{
 
     val amount: Money
     val currency: Currency
-    val period: Int
+    val term: Int
     val clientId: Int
     val interest: Int
-    val maxAmount: Money
-    val minAmount: Money
+    val maxAllowedAmount: Money
+    val minTermForMaxAmount: Money
+    val minTermForRequestedAmount: Money
+    val requestedAmount: Money
 
-    val loan: Int
     val status: Status
     val coBorrowers: Array<Int>
     var guarantors: Array<Int>

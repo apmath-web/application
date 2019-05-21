@@ -21,7 +21,6 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
         .prepend("clientId", RequiredValidator())
         .prepend("amount", RequiredValidator())
         .prepend("currency", RequiredValidator())
-        .prepend("loan", RequiredValidator())
         .prepend("coBorrowers", RequiredValidator())
         .prepend("guarantors", RequiredValidator())
         .build()
