@@ -6,6 +6,7 @@ import com.apmath.applications.domain.exceptions.ApiException
 import com.apmath.applications.domain.services.ApplicationServiceInterface
 import com.sun.xml.internal.messaging.saaj.soap.SOAPIOException
 import io.ktor.application.ApplicationCall
+import com.apmath.applications.application.v1.actions.v1LoanRequest
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
@@ -26,6 +27,7 @@ private fun Routing.v1Info() {
 
     val applicationService: ApplicationServiceInterface by inject()
 
+
     route("v1") {
         get("info") {
             call.v1Info()
@@ -45,4 +47,14 @@ suspend fun ApplicationCall.respondError(e: Exception) {
         respond(HttpStatusCode.InternalServerError, "Something went wrong")
     }
 
+}
+
+private fun Routing.v1Application() {
+
+    route("v1") {
+        post("{clientId}/{applicationId}") {
+            val parameters = call.parameters
+            call.v1LoanRequest(parameters["clientId"]!!, parameters["applicationId"]!!)
+        }
+    }
 }
