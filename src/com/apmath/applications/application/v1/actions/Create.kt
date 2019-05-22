@@ -1,21 +1,21 @@
 package com.apmath.applications.application.v1.actions
 
-import com.apmath.applications.application.v1.models.Application
-import com.apmath.applications.application.v1.models.toApplicationClient
-import com.apmath.applications.application.v1.respondError
+import com.apmath.applications.application.v1.actions.models.Application
+import com.apmath.applications.application.v1.actions.models.toApplicationDomain
 import com.apmath.applications.application.v1.validator.ApplicationBuilder
 import com.apmath.applications.domain.services.ApplicationServiceInterface
+import com.apmath.validation.simple.NullableValidator
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
 import io.ktor.request.receive
 import io.ktor.response.respond
 import java.lang.Exception
 
-suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterface){
+suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterface, clientId: String){
 
     val application = receive<Application>()
 
-    application.clientId = getUserId(request)
+    application.clientId = clientId
 
     val validator = ApplicationBuilder()
         .prepend("clientId", RequiredValidator())
@@ -32,7 +32,7 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
 
     }
 
-    val applicationDomain = application.toApplicationClient()
+    val applicationDomain = application.toApplicationDomain()
 
     val applicationId: Int =
             try{
@@ -40,8 +40,7 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
                 applicationService.add(applicationDomain)
 
             } catch (e:Exception){
-
-                respondError(e)
+                //TODO: catch exceptions
                 return
 
             }
