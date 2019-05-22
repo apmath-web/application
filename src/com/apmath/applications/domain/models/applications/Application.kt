@@ -6,7 +6,7 @@ import com.apmath.applications.domain.data.Status
 import com.apmath.applications.domain.exceptions.runtime.ChangeIdentifiedApplicationIdException
 
 
-data class Application(
+class Application(
 
     override val amount: Money,
     override val currency: Currency,
