@@ -8,10 +8,9 @@ class ApplicationBuilder : ObjectValidatorBuilder() {
 
     init {
 
-        append("clientId", ComparableValidator(min = 1))
+        append("clientId", RegexValidator("\\d*[1-9]\\d*"))
         append("amount", ComparableValidator(min = 1L, max = 3000000000000000L))
         append("currency", RegexValidator("\\b[A-Z]{3}\\b"))
-        append("loan", ComparableValidator(min = 1))
 
     }
 
