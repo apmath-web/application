@@ -2,7 +2,7 @@ package com.apmath.applications
 
 import com.apmath.applications.application.v1.exceptions.ApiException
 import com.apmath.applications.application.v1.v1
-import com.apmath.applications.infrastructure.applications
+import com.apmath.applications.com.apmath.applications.infrastructure.applications
 import com.apmath.applications.infrastructure.respondApiException
 import io.ktor.application.Application
 import io.ktor.application.call
