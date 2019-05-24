@@ -2,6 +2,7 @@ package com.apmath.applications.application.v1.actions
 
 import com.apmath.applications.application.v1.actions.models.Application
 import com.apmath.applications.application.v1.actions.models.toApplicationDomain
+import com.apmath.applications.application.v1.exceptions.BadRequestValidationException
 import com.apmath.applications.application.v1.validator.ApplicationBuilder
 import com.apmath.applications.domain.services.ApplicationServiceInterface
 import com.apmath.validation.simple.NullableValidator
@@ -27,8 +28,7 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
 
     if (!validator.validate(application)){
 
-        respond(validator.messages)
-        return
+        throw BadRequestValidationException(validator)
 
     }
 
