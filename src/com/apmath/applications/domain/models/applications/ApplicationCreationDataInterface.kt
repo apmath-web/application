@@ -12,3 +12,5 @@ interface ApplicationCreationDataInterface {
     val guarantors: Array<Int>
 
 }
+
+
