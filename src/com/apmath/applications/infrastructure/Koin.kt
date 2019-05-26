@@ -4,9 +4,8 @@ import org.koin.dsl.module
 import com.apmath.applications.domain.ExpensesFetcherInterface
 import com.apmath.applications.domain.services.ApplicationService
 import com.apmath.applications.domain.services.ApplicationServiceInterface
-import com.apmath.applications.infrastructure.ExpensesFetcher
+import com.apmath.applications.infrastructure.fetchers.ExpensesFetcher
 import io.ktor.config.ApplicationConfig
-import org.koin.dsl.module
 import org.koin.experimental.builder.singleBy
 
 val applications = module {
