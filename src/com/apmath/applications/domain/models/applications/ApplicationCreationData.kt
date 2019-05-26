@@ -2,6 +2,7 @@ package com.apmath.applications.domain.models.applications
 
 import com.apmath.applications.domain.data.Currency
 import com.apmath.applications.domain.data.Money
+import com.apmath.applications.infrastructure.ApplicationInitialization
 import com.apmath.applications.infrastructure.applications
 
 data class ApplicationCreationData(
@@ -14,22 +15,25 @@ data class ApplicationCreationData(
 
 ) : ApplicationCreationDataInterface
 
-//fun ApplicationCreationDataInterface.toApplication(applicationDetails: ApplicationDetailsInterface) = Application(
-fun ApplicationCreationDataInterface.toApplication() = Application(
+fun ApplicationCreationDataInterface.toApplication(applicationDetails: ApplicationDetailsInterface) = Application(
 
     clientId,
     amount,
     currency,
     coBorrowers,
-    guarantors
+    guarantors,
 
-//    applicationDetails.term,
-//    applicationDetails.interest,
-//    applicationDetails.maxAllowedAmount,
-//    applicationDetails.minTermForMaxAmount,
-//    applicationDetails.minTermForRequestedAmount,
-//    applicationDetails.requestedAmount,
-//    applicationDetails.status
+    applicationDetails.term,
+    applicationDetails.interest,
+    applicationDetails.maxAllowedAmount,
+    applicationDetails.minTermForMaxAmount,
+    applicationDetails.minTermForRequestedAmount,
+    applicationDetails.requestedAmount,
+    applicationDetails.status
 
+)
 
+fun ApplicationCreationDataInterface.toApplicationInitialization() = ApplicationInitialization(
+    clientId = clientId,
+    coBorrowers = coBorrowers
 )
