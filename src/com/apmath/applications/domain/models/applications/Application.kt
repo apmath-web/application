@@ -8,28 +8,32 @@ import com.apmath.applications.domain.exceptions.runtime.ChangeIdentifiedApplica
 
 class Application(
 
+    override val clientId: Int,
+
     override val amount: Money,
     override val currency: Currency,
-    override val term: Int,
-    override val clientId: Int,
-    override val interest: Int,
-    override val maxAllowedAmount: Money,
-    override val minTermForMaxAmount: Money,
-    override val minTermForRequestedAmount: Money,
-    override val requestedAmount: Money,
-
-    override val status: Status,
     override val coBorrowers: Array<Int>,
     override var guarantors: Array<Int>
 
-) : ApplicationInterface{
+//    override val term: Int,
+//    override val interest: Int,
+//    override val maxAllowedAmount: Money,
+//    override val minTermForMaxAmount: Money,
+//    override val minTermForRequestedAmount: Money,
+//    override val requestedAmount: Money,
+//    override val status: Status
+
+) : ApplicationInterface {
 
     override var id: Int? = null
-        set(value){
-            if(field==null){
-                field=value
-            }else{
+        set(value) {
+            if (field == null) {
+                field = value
+            } else {
                 throw ChangeIdentifiedApplicationIdException()
             }
         }
+
+    override var completed: Boolean = false
+        private set
 }
