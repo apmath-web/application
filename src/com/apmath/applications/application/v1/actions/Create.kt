@@ -1,8 +1,10 @@
 package com.apmath.applications.application.v1.actions
 
+import com.apmath.application.domain.exceptions.NoClientException
 import com.apmath.applications.application.v1.actions.models.Application
 import com.apmath.applications.application.v1.actions.models.toApplicationDomain
 import com.apmath.applications.application.v1.exceptions.BadRequestValidationException
+import com.apmath.applications.application.v1.exceptions.NotFoundException
 import com.apmath.applications.application.v1.validator.ApplicationBuilder
 import com.apmath.applications.domain.services.ApplicationServiceInterface
 import com.apmath.validation.simple.NullableValidator
@@ -39,10 +41,8 @@ suspend fun ApplicationCall.v1Create(applicationService: ApplicationServiceInter
 
             applicationService.add(applicationDomain)
 
-        } catch (e: Exception) {
-            //TODO: catch exceptions
-            return
-
+        } catch (e: NoClientException) {
+            throw NotFoundException("Client does not exist")
         }
 
     respond(mapOf("id" to applicationId))
