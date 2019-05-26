@@ -22,7 +22,7 @@ suspend fun respondApiException(call: ApplicationCall, e: ApiException) {
                 mapOf("message" to e.message!!, "description" to description)
             )
         }
-        e.message != null -> call.respond(e.status,  mapOf("message" to e.message!!))
+        e.message != null -> call.respond(e.status, mapOf("message" to e.message!!))
         else -> call.respond(e.status, mapOf("message" to e.javaClass))
     }
 }
