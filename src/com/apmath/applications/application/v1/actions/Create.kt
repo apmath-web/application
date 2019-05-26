@@ -12,7 +12,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import java.lang.Exception
 
-suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterface, clientId: String){
+suspend fun ApplicationCall.v1Create(applicationService: ApplicationServiceInterface, clientId: String) {
 
     val application = receive<Application>()
 
@@ -26,7 +26,7 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
         .prepend("guarantors", RequiredValidator())
         .build()
 
-    if (!validator.validate(application)){
+    if (!validator.validate(application)) {
 
         throw BadRequestValidationException(validator)
 
@@ -35,15 +35,15 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
     val applicationDomain = application.toApplicationDomain()
 
     val applicationId: Int =
-            try{
+        try {
 
-                applicationService.add(applicationDomain)
+            applicationService.add(applicationDomain)
 
-            } catch (e:Exception){
-                //TODO: catch exceptions
-                return
+        } catch (e: Exception) {
+            //TODO: catch exceptions
+            return
 
-            }
+        }
 
     respond(mapOf("id" to applicationId))
 
