@@ -14,8 +14,8 @@ class Application(
     override val currency: Currency,
     override val coBorrowers: Array<Int>,
     override var guarantors: Array<Int>,
-
     override val term: Int,
+
     override val interest: Int,
     override val maxAllowedAmount: Money,
     override val minTermForMaxAmount: Money,

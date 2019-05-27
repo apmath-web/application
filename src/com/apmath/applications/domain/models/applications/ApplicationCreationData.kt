@@ -11,7 +11,8 @@ data class ApplicationCreationData(
     override val amount: Money,
     override val currency: Currency,
     override val coBorrowers: Array<Int>,
-    override val guarantors: Array<Int>
+    override val guarantors: Array<Int>,
+    override val term: Int
 
 ) : ApplicationCreationDataInterface
 
@@ -22,8 +23,8 @@ fun ApplicationCreationDataInterface.toApplication(applicationDetails: Applicati
     currency,
     coBorrowers,
     guarantors,
+    term,
 
-    applicationDetails.term,
     applicationDetails.interest,
     applicationDetails.maxAllowedAmount,
     applicationDetails.minTermForMaxAmount,
