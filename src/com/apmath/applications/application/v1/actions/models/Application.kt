@@ -12,6 +12,7 @@ class Application {
     var currency: Currency? = null
     var coBorrowers: Array<Int>? = null
     var guarantors: Array<Int>? = null
+    var term: Int? = null
 
 }
 
@@ -21,6 +22,7 @@ fun Application.toApplicationDomain() = ApplicationDomain(
     amount = amount!!,
     currency = currency!!,
     coBorrowers = coBorrowers!!,
-    guarantors = guarantors!!
+    guarantors = guarantors!!,
+    term = term!!
 
 )
