@@ -47,29 +47,31 @@ class ApplicationService(
 
             else -> {
 
-                var term = 12
-                val interests = 12
-                val expenses = expensesResult.await()
-                val maxAllowedAmount = expenses.maxAllowedAmount.toInt()
-                var minTermForMaxAmount = 1
-                var minTermForRequestedAmount = 1
+                var status = Status.APPROVED
+                val currency = application.currency
+                var interest = 12
+                val maxAllowedAmount = expensesResult.await().maxAllowedAmount.toLong()
+                var minTermForMaxAmount = 1.toLong()
+                var minTermForRequestedAmount = 1.toLong()
                 val requestedAmount = application.amount
-                val status = Status.APPROVED
+
 
                 if (clientId % 2 == 0) {
-                    status != Status.APPROVED
+                    status = Status.APPROVED
                 } else {
-                    status != Status.REJECTED
+                    status = Status.REJECTED
                 }
 
-                minTermForMaxAmount = maxAllowedAmount / 200
-                minTermForRequestedAmount = requestedAmount.toInt() / 200
-                if (requestedAmount < maxAllowedAmount) {
-                    term = minTermForRequestedAmount*(1+interests)
-                } else {
-                    term = minTermForMaxAmount*(1+interests)
+                if (currency == "RUB"){
+                    interest = 5
+                }else if (currency == "EUR"){
+                    interest = 3
+                }else if (currency == "USD"){
+                    interest = 2
                 }
 
+                minTermForMaxAmount = (maxAllowedAmount*(1+interest))/application.term
+                minTermForRequestedAmount = (application.amount*(1+interest))/application.term
 
                 val applicationEmployee = application.toApplication(applicationDetails)
 
