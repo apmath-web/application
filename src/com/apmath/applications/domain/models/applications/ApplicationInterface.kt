@@ -20,6 +20,8 @@ interface ApplicationInterface{
 
     val status: Status
     val coBorrowers: Array<Int>
-    var guarantors: Array<Int>
+    val guarantors: Array<Int>
+
+    val completed: Boolean
 
 }
