@@ -4,8 +4,6 @@ import com.apmath.applications.domain.data.Money
 import com.apmath.applications.domain.data.Status
 
 interface ApplicationDetailsInterface {
-    val interest: Int
-    val maxPayment: Money
     val maxAllowedAmount: Money
     val minTermForMaxAmount: Money
     val minTermForRequestedAmount: Money

@@ -7,8 +7,6 @@ import com.apmath.applications.domain.models.applications.ApplicationDetailsInte
 
 class ApplicationDetails(
 
-    override val interest: Int,
-    override val maxPayment: Money,
     override val maxAllowedAmount: Money,
     override val minTermForMaxAmount: Money,
     override val minTermForRequestedAmount: Money,

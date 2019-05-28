@@ -16,7 +16,11 @@ class ApplicationCreationData(
 
 ) : ApplicationCreationDataInterface
 
-fun ApplicationCreationDataInterface.toApplication(applicationDetails: ApplicationDetailsInterface) = Application(
+fun ApplicationCreationDataInterface.toApplication(
+    interest: Int,
+    maxPayment: Money,
+    applicationDetails: ApplicationDetailsInterface
+) = Application(
 
     clientId,
     amount,
@@ -25,8 +29,8 @@ fun ApplicationCreationDataInterface.toApplication(applicationDetails: Applicati
     guarantors,
     term,
 
-    applicationDetails.interest,
-    applicationDetails.maxPayment,
+    interest,
+    maxPayment,
 
     applicationDetails.maxAllowedAmount,
     applicationDetails.minTermForMaxAmount,
