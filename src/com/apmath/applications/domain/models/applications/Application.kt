@@ -32,4 +32,6 @@ class Application(
                 throw ChangeIdentifiedApplicationIdException()
             }
         }
+    override var completed: Boolean = false
+        private set
 }
