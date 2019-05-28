@@ -10,5 +10,6 @@ interface ApplicationCreationDataInterface {
     val currency: Currency
     val coBorrowers: Array<Int>
     val guarantors: Array<Int>
+    val term: Int
 
 }
