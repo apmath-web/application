@@ -20,8 +20,8 @@ class Application(
     override val maxPayment: Money,
 
     override val maxAllowedAmount: Money,
-    override val minTermForMaxAmount: Money,
-    override val minTermForRequestedAmount: Money,
+    override val minTermForMaxAmount: Int,
+    override val minTermForRequestedAmount: Int,
     override val requestedAmount: Money,
     override val status: Status
 
