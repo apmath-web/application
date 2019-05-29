@@ -19,8 +19,8 @@ interface ApplicationInterface {
     val maxPayment: Money
 
     val maxAllowedAmount: Money
-    val minTermForMaxAmount: Money
-    val minTermForRequestedAmount: Money
+    val minTermForMaxAmount: Int
+    val minTermForRequestedAmount: Int
     val requestedAmount: Money
     val status: Status
 
