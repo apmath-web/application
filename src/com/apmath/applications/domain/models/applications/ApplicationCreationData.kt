@@ -17,8 +17,6 @@ class ApplicationCreationData(
 ) : ApplicationCreationDataInterface
 
 fun ApplicationCreationDataInterface.toApplication(
-    interest: Int,
-    maxPayment: Money,
     applicationDetails: ApplicationDetailsInterface
 ) = Application(
 
