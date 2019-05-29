@@ -29,8 +29,8 @@ fun ApplicationCreationDataInterface.toApplication(
     guarantors,
     term,
 
-    interest,
-    maxPayment,
+    applicationDetails.interest,
+    applicationDetails.maxPayment,
 
     applicationDetails.maxAllowedAmount,
     applicationDetails.minTermForMaxAmount,
