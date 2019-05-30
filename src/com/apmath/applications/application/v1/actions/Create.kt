@@ -24,6 +24,7 @@ suspend fun ApplicationCall.v1Create(applicationService:ApplicationServiceInterf
         .prepend("currency", RequiredValidator())
         .prepend("coBorrowers", RequiredValidator())
         .prepend("guarantors", RequiredValidator())
+        .prepend("term", RequiredValidator())
         .build()
 
     if (!validator.validate(application)){
