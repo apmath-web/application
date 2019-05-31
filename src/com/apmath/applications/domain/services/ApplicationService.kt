@@ -21,6 +21,7 @@ class ApplicationService(
         val clientId = application.clientId
 
         val clientsResult = GlobalScope.async {
+            //TODO: Research about coroutineScope or different solutions
             clientsFetcher.isExists(clientId)
         }
 
