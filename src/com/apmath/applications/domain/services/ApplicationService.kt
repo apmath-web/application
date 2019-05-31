@@ -74,5 +74,4 @@ class ApplicationService(
         return repository.get(applicationId)
     }
 
-
 }
