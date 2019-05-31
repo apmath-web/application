@@ -39,32 +39,37 @@ class ApplicationService(
         val interest = interestsResult.await()
         val expense = expensessResult.await()
 
-        if (client) {
-            val interest = interest.interest
-            val maxPayment = expense.maxPayment
+        when {
+            !client
+            -> throw NoClientException()
 
-            var maxAllowedAmount = application.amount
-            var minTermForMaxAmount = 1
-            var minTermForRequestedAmount = application.term
-            var requestedAmount = application.amount
-            var status = Status.APPROVED
+            else -> {
+                val interest = interest.interest
+                val maxPayment = expense.maxPayment
 
-            val applicationDetails = ApplicationDetails(
-                interest,
-                maxPayment,
-                maxAllowedAmount,
-                minTermForMaxAmount,
-                minTermForRequestedAmount,
-                requestedAmount,
-                status
-            )
+                var maxAllowedAmount = application.amount
+                var minTermForMaxAmount = 1
+                var minTermForRequestedAmount = application.term
+                var requestedAmount = application.amount
+                var status = Status.APPROVED
 
-            val applicationEmployee = application.toApplication(applicationDetails)
+                val applicationDetails = ApplicationDetails(
+                    interest,
+                    maxPayment,
+                    maxAllowedAmount,
+                    minTermForMaxAmount,
+                    minTermForRequestedAmount,
+                    requestedAmount,
+                    status
+                )
 
-            repository.store(applicationEmployee)
-            return applicationEmployee.id!!
-        } else {throw NoClientException()}
+                val applicationEmployee = application.toApplication(applicationDetails)
+
+                repository.store(applicationEmployee)
+                return applicationEmployee.id!!
+
+            }
+        }
     }
-}
 
 }
