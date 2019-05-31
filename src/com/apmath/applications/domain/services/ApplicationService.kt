@@ -8,6 +8,7 @@ import com.apmath.applications.infrastructure.fetchers.InterestsFetcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import com.apmath.applications.domain.data.Status
+import com.apmath.applications.domain.exceptions.ForbiddenAccessException
 import com.apmath.applications.domain.models.applications.*
 import com.apmath.applications.infrastructure.ApplicationDetails
 
@@ -38,37 +39,32 @@ class ApplicationService(
         val interest = interestsResult.await()
         val expense = expensessResult.await()
 
-        when {
-            !client
-            -> throw NoClientException()
+        if (client) {
+            val interest = interest.interest
+            val maxPayment = expense.maxPayment
 
-            else -> {
-                val interest = interest.interest
-                val maxPayment = expense.maxPayment
+            var maxAllowedAmount = application.amount
+            var minTermForMaxAmount = 1
+            var minTermForRequestedAmount = application.term
+            var requestedAmount = application.amount
+            var status = Status.APPROVED
 
-                var maxAllowedAmount = application.amount
-                var minTermForMaxAmount = 1
-                var minTermForRequestedAmount = application.term
-                var requestedAmount = application.amount
-                var status = Status.APPROVED
+            val applicationDetails = ApplicationDetails(
+                interest,
+                maxPayment,
+                maxAllowedAmount,
+                minTermForMaxAmount,
+                minTermForRequestedAmount,
+                requestedAmount,
+                status
+            )
 
-                val applicationDetails = ApplicationDetails(
-                    interest,
-                    maxPayment,
-                    maxAllowedAmount,
-                    minTermForMaxAmount,
-                    minTermForRequestedAmount,
-                    requestedAmount,
-                    status
-                )
+            val applicationEmployee = application.toApplication(applicationDetails)
 
-                val applicationEmployee = application.toApplication(applicationDetails)
-
-                repository.store(applicationEmployee)
-                return applicationEmployee.id!!
-
-            }
-        }
+            repository.store(applicationEmployee)
+            return applicationEmployee.id!!
+        } else throw NoClientException()
     }
+}
 
 }
