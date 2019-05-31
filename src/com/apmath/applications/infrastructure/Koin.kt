@@ -12,9 +12,8 @@ import com.apmath.applications.infrastructure.fetchers.ClientsFetcher
 import com.apmath.applications.infrastructure.fetchers.ExpensesFetcher
 import com.apmath.applications.infrastructure.fetchers.InterestsFetcher
 import io.ktor.config.ApplicationConfig
-import io.ktor.util.KtorExperimentalAPI
 import org.koin.experimental.builder.singleBy
-@KtorExperimentalAPI
+
 val applications = module {
 
     singleBy<ApplicationServiceInterface, ApplicationService>()
