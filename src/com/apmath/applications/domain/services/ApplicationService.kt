@@ -63,7 +63,7 @@ class ApplicationService(
 
             repository.store(applicationEmployee)
             return applicationEmployee.id!!
-        } else throw NoClientException()
+        } else {throw NoClientException()}
     }
 }
 
