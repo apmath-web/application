@@ -22,6 +22,7 @@ class ApplicationService(
         val clientId = application.clientId
 
         val clientsResult = GlobalScope.async {
+            //TODO: Find another solutions
             clientsFetcher.isExists(clientId)
         }
 
@@ -45,7 +46,7 @@ class ApplicationService(
             val maxPayment = expense.maxPayment
 
             var maxAllowedAmount = application.amount
-            var minTermForMaxAmount = 228
+            var minTermForMaxAmount = 1
             var minTermForRequestedAmount = application.term
             var requestedAmount = application.amount
             var status = Status.APPROVED
@@ -65,7 +66,9 @@ class ApplicationService(
             repository.store(applicationEmployee)
             return applicationEmployee.id!!
 
-        } else throw NoClientException()
+        } else {
+            throw NoClientException()
+        }
 
     }
 
