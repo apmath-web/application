@@ -8,7 +8,7 @@ import com.apmath.applications.domain.exceptions.runtime.StoreIdentifiedApplicat
 import com.apmath.applications.domain.models.applications.ApplicationInterface
 
 class Repository : RepositoryInterface {
-    private var identity: Int = 0
+    private var identity: Int = 1
     private val applications: HashMap<Int?, ApplicationInterface> = hashMapOf()
 
     override fun getAll(): List<ApplicationInterface> = applications.toList().map { it.second }
@@ -21,8 +21,8 @@ class Repository : RepositoryInterface {
         if (application.id != null) {
             throw StoreIdentifiedApplicationException()
         }
-        application.id = identity++
-        applications[application.id] = application
+        application.id = identity
+        applications[identity++] = application
     }
 
     override fun remove(application: ApplicationInterface) {
