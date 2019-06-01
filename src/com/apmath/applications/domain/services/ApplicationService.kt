@@ -1,5 +1,6 @@
 package com.apmath.applications.domain.services
 
+import com.apmath.applications.domain.data.Money
 import com.apmath.applications.domain.exceptions.NoClientException
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -42,14 +43,52 @@ class ApplicationService(
 
         if (client) {
 
+            fun calcucatePayment(interest: Int, term: Int, amount: Money): Money {
+                val interestMonth = interest.toDouble() / 12 / 100
+
+                var interestPlusOnePowTerm = Math.pow(
+                    (1 + interestMonth),
+                    term.toDouble()
+                )
+
+                val payment = ((interestMonth * interestPlusOnePowTerm) / (interestPlusOnePowTerm - 1)) * amount
+
+                return payment.toLong()
+            }
+
+            fun calcucateTerm(interest: Int, payment: Money, amount: Money): Int {
+                val interestMonth = interest.toDouble() / 100 / 12
+
+                var interestPlusOnePowTerm = -payment / (interestMonth * amount - payment)
+
+                return ((Math.log(interestPlusOnePowTerm) / Math.log(interestMonth + 1))+0.5).toInt()
+            }
+
             val interest = interest.interest
             val maxPayment = expense.maxPayment
 
-            var maxAllowedAmount = application.amount
-            var minTermForMaxAmount = 1
+            var maxAllowedAmount = application.amount * 2
+            var minTermForMaxAmount = application.term
             var minTermForRequestedAmount = application.term
             var requestedAmount = application.amount
             var status = Status.APPROVED
+
+            var calcucatedPayment = calcucatePayment(interest, application.term, application.amount)
+
+            if (calcucatedPayment > maxPayment) {
+                status = Status.REJECTED
+            } else {
+                status = Status.APPROVED
+
+                calcucatedPayment = calcucatePayment(interest, application.term, maxAllowedAmount)
+                if (calcucatedPayment < maxPayment) {
+                    minTermForMaxAmount = calcucateTerm(interest, maxPayment, maxAllowedAmount)
+
+                } else {
+                    maxAllowedAmount = application.amount
+                }
+
+            }
 
             val applicationDetails = ApplicationDetails(
                 interest,
@@ -69,7 +108,6 @@ class ApplicationService(
         } else {
             throw NoClientException()
         }
-
     }
 
     override suspend fun get(applicationId: Int): ApplicationInterface {
