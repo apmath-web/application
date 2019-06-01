@@ -1,10 +1,10 @@
 package com.apmath.applications.domain.services
 
-import com.apmath.applications.domain.data.Money
 import com.apmath.applications.domain.exceptions.NoClientException
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import com.apmath.applications.domain.data.Status
+import com.apmath.applications.domain.exceptions.ForbiddenAccessException
 import com.apmath.applications.domain.fetchers.ClientsFetcherInterface
 import com.apmath.applications.domain.fetchers.ExpensesFetcherInterface
 import com.apmath.applications.domain.fetchers.InterestsFetcherInterface
@@ -22,6 +22,7 @@ class ApplicationService(
         val clientId = application.clientId
 
         val clientsResult = GlobalScope.async {
+            //TODO: Find another solutions
             clientsFetcher.isExists(clientId)
         }
 
@@ -30,14 +31,14 @@ class ApplicationService(
             interestsFetcher.initialization(applicationInit)
         }
 
-        val expensesResult = GlobalScope.async {
+        val expensessResult = GlobalScope.async {
             val applicationInit = application.toApplicationInitialization()
             expensesFetcher.initialization(applicationInit)
         }
 
         val client = clientsResult.await()
         val interest = interestsResult.await()
-        val expense = expensesResult.await()
+        val expense = expensessResult.await()
 
         if (client) {
 
@@ -103,8 +104,9 @@ class ApplicationService(
             repository.store(applicationEmployee)
             return applicationEmployee.id!!
 
-        } else throw NoClientException()
-
+        } else {
+            throw NoClientException()
+        }
     }
 
     override suspend fun get(applicationId: Int): ApplicationInterface {
