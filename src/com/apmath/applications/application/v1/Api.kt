@@ -4,7 +4,12 @@ import com.apmath.applications.application.v1.actions.v1Create
 import com.apmath.applications.application.v1.actions.v1Info
 import com.apmath.applications.domain.services.ApplicationServiceInterface
 import com.apmath.applications.application.v1.actions.v1LoanRequest
+import com.apmath.applications.application.v1.exceptions.ApiException
+import com.apmath.applications.application.v1.exceptions.BadRequestValidationException
+import com.apmath.validation.PathMessageInterface
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
+import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -33,6 +38,11 @@ private fun Routing.v1Application() {
     val applicationService: ApplicationServiceInterface by inject()
 
     route("v1") {
+        get("{applicationId}") {
+            val parameters = call.parameters
+            val application = applicationService.get(parameters["applicationId"]!!.toInt())
+            call.respond(application)
+        }
         post("{clientId}/{applicationId}") {
             val parameters = call.parameters
             call.v1LoanRequest(parameters["clientId"]!!, parameters["applicationId"]!!)
@@ -43,3 +53,5 @@ private fun Routing.v1Application() {
         }
     }
 }
+
+

@@ -1,27 +1,28 @@
 package com.apmath.applications.domain.services
 
 import com.apmath.applications.domain.exceptions.NoClientException
-import com.apmath.applications.domain.repositories.Repository
-import com.apmath.applications.infrastructure.fetchers.ClientsFetcher
-import com.apmath.applications.infrastructure.fetchers.ExpensesFetcher
-import com.apmath.applications.infrastructure.fetchers.InterestsFetcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import com.apmath.applications.domain.data.Status
+import com.apmath.applications.domain.exceptions.ForbiddenAccessException
+import com.apmath.applications.domain.fetchers.ClientsFetcherInterface
+import com.apmath.applications.domain.fetchers.ExpensesFetcherInterface
+import com.apmath.applications.domain.fetchers.InterestsFetcherInterface
 import com.apmath.applications.domain.models.applications.*
+import com.apmath.applications.domain.repositories.RepositoryInterface
 import com.apmath.applications.infrastructure.ApplicationDetails
 
 class ApplicationService(
-    private val clientsFetcher: ClientsFetcher,
-    private val interestsFetcher: InterestsFetcher,
-    private val expensesFetcher: ExpensesFetcher,
-    private val repository: Repository
+    private val clientsFetcher: ClientsFetcherInterface,
+    private val interestsFetcher: InterestsFetcherInterface,
+    private val expensesFetcher: ExpensesFetcherInterface,
+    private val repository: RepositoryInterface
 ) : ApplicationServiceInterface {
     override suspend fun add(application: ApplicationCreationDataInterface): Int {
         val clientId = application.clientId
 
         val clientsResult = GlobalScope.async {
-            //TODO: Research about coroutineScope or different solutions
+            //TODO: Find another solutions
             clientsFetcher.isExists(clientId)
         }
 
@@ -40,6 +41,7 @@ class ApplicationService(
         val expense = expensessResult.await()
 
         if (client) {
+
             val interest = interest.interest
             val maxPayment = expense.maxPayment
 
@@ -63,9 +65,16 @@ class ApplicationService(
 
             repository.store(applicationEmployee)
             return applicationEmployee.id!!
+
         } else {
             throw NoClientException()
         }
-    }
-}
 
+    }
+
+    override suspend fun get(applicationId: Int): ApplicationInterface {
+
+        return repository.get(applicationId)
+    }
+
+}
