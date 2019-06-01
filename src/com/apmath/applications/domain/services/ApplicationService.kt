@@ -59,7 +59,7 @@ class ApplicationService(
 
                 var interestPlusOnePowTerm = -payment / (interestMonth * amount - payment)
 
-                return (Math.log(interestPlusOnePowTerm) / Math.log(interestMonth + 1)).toInt()
+                return ((Math.log(interestPlusOnePowTerm) / Math.log(interestMonth + 1))+0.5).toInt()
             }
 
             val interest = interest.interest
