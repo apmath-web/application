@@ -5,6 +5,10 @@ import io.ktor.client.call.call
 import io.ktor.client.engine.apache.Apache
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.logging.DEFAULT
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
+import io.ktor.client.features.logging.Logging
 import io.ktor.client.request.request
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
@@ -63,6 +67,12 @@ open class AbstractFetcher(val host: String, val port: Int) {
 
     companion object {
         val client: HttpClient = HttpClient(Apache) {
+
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.HEADERS
+            }
+
             install(JsonFeature) {
                 serializer = GsonSerializer {
                     serializeNulls()

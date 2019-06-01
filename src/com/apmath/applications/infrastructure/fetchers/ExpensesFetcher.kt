@@ -9,6 +9,6 @@ class ExpensesFetcher(
     port: Int
 ) : AbstractFetcher(host, port), ExpensesFetcherInterface {
     override suspend fun initialization(application: ApplicationInitializationInterface): ApplicationDetails {
-        return post("/v1/application", application)
+        return post("/v1/${application.clientId}", application)
     }
 }
