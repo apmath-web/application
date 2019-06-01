@@ -21,7 +21,7 @@ class Repository : RepositoryInterface {
         if (application.id != null) {
             throw StoreIdentifiedApplicationException()
         }
-        application.id = identity
+        identity = application.id
         applications[identity++] = application
     }
 
