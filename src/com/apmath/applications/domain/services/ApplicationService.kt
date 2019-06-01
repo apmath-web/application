@@ -60,14 +60,13 @@ class ApplicationService(
                 val interestMonth = interest.toDouble() / 100 / 12
 
                 val interestPowTerm = amount * interestMonth / (amount - interestMonth * interestMonth * payment)
-
                 return (Math.log(interestPowTerm) / Math.log(interestMonth)).toInt()
             }
 
             val interest = interest.interest
             val maxPayment = expense.maxPayment
 
-            var maxAllowedAmount = application.amount*2
+            var maxAllowedAmount = application.amount * 2
             var minTermForMaxAmount = application.term
             var minTermForRequestedAmount = application.term
             var requestedAmount = application.amount
@@ -75,15 +74,15 @@ class ApplicationService(
 
             var calcucatedPayment = calcucatePayment(interest, application.term, application.amount)
 
-            if (calcucatedPayment > maxPayment){
-                status = Status.REJECTED}
-            else {
+            if (calcucatedPayment > maxPayment) {
+                status = Status.REJECTED
+            } else {
                 status = Status.APPROVED
 
                 calcucatedPayment = calcucatePayment(interest, application.term, maxAllowedAmount)
-                println(calcucatedPayment)
                 if (calcucatedPayment < maxPayment) {
                     minTermForMaxAmount = calcucateTerm(interest, maxPayment, maxAllowedAmount)
+
                 } else {
                     maxAllowedAmount = application.amount
                 }
