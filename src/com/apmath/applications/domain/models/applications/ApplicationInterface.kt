@@ -6,7 +6,7 @@ import com.apmath.applications.domain.data.Status
 
 interface ApplicationInterface {
 
-    var id: Int
+    var id: Int?
 
     val amount: Money
     val currency: Currency
