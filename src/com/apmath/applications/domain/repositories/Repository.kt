@@ -9,7 +9,7 @@ import com.apmath.applications.domain.models.applications.ApplicationInterface
 
 class Repository : RepositoryInterface {
     private var identity: Int = 1
-    private val applications: HashMap<Int?, ApplicationInterface> = hashMapOf()
+    private val applications: HashMap<Int, ApplicationInterface> = hashMapOf()
 
     override fun getAll(): List<ApplicationInterface> = applications.toList().map { it.second }
 
