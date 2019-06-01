@@ -9,7 +9,7 @@ import com.apmath.applications.domain.models.applications.ApplicationInterface
 
 class Repository : RepositoryInterface {
     private var identity: Int = 0
-    private val applications: HashMap<Int, ApplicationInterface> = hashMapOf()
+    private val applications: HashMap<Int?, ApplicationInterface> = hashMapOf()
 
     override fun getAll(): List<ApplicationInterface> = applications.toList().map { it.second }
 
@@ -21,8 +21,7 @@ class Repository : RepositoryInterface {
         if (application.id != null) {
             throw StoreIdentifiedApplicationException()
         }
-        identity = identity+1
-        application.id = identity
+        application.id = identity++
         applications[application.id] = application
     }
 
