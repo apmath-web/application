@@ -44,14 +44,12 @@ class ApplicationService(
             fun calcucatePayment(interest: Int, term: Int, amount: Money): Money {
                 val interestMonth = interest.toDouble() / 12 / 100
 
+                var interestPlusOnePowTerm = Math.pow(
+                    (1 + interestMonth),
+                    term.toDouble()
+                )
 
-                val payment = (interestMonth * Math.pow(
-                    (1 + interestMonth),
-                    term.toDouble()
-                )) / (Math.pow(
-                    (1 + interestMonth),
-                    term.toDouble()
-                ) - 1) * amount
+                val payment = ((interestMonth * interestPlusOnePowTerm) / (interestPlusOnePowTerm - 1)) * amount
 
                 return payment.toLong()
             }
@@ -59,8 +57,9 @@ class ApplicationService(
             fun calcucateTerm(interest: Int, payment: Money, amount: Money): Int {
                 val interestMonth = interest.toDouble() / 100 / 12
 
-                val interestPowTerm = amount * interestMonth / (amount - interestMonth * interestMonth * payment)
-                return (Math.log(interestPowTerm) / Math.log(interestMonth)).toInt()
+                var interestPlusOnePowTerm = -payment / (interestMonth * amount - payment)
+
+                return (Math.log(interestPlusOnePowTerm) / Math.log(interestMonth + 1)).toInt()
             }
 
             val interest = interest.interest
