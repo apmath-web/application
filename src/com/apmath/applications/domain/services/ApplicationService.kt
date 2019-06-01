@@ -1,5 +1,6 @@
 package com.apmath.applications.domain.services
 
+import com.apmath.applications.domain.data.Money
 import com.apmath.applications.domain.exceptions.NoClientException
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
